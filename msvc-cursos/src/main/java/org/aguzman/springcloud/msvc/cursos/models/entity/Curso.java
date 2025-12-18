@@ -1,7 +1,9 @@
 package org.aguzman.springcloud.msvc.cursos.models.entity;
 
+import org.aguzman.springcloud.msvc.cursos.models.Usuario;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +15,15 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotEmpty
     private String nombre;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="curso_id")
+    @JoinColumn(name = "curso_id")
     private List<CursoUsuario> cursoUsuarios;
 
     @Transient
-    private List<CursoUsuario> usuarios;
+    private List<Usuario> usuarios;
 
     public Curso() {
         cursoUsuarios = new ArrayList<>();
@@ -44,27 +46,26 @@ public class Curso {
         this.nombre = nombre;
     }
 
-    public List<CursoUsuario> getCursoUsuarios() {
-        return cursoUsuarios;
-    }
-
-    public void addCursoUsuario(CursoUsuario cursoUsuario){
+    public void addCursoUsuario(CursoUsuario cursoUsuario) {
         cursoUsuarios.add(cursoUsuario);
     }
 
-    public void removeCursoUsuario(CursoUsuario cursoUsuario){
+    public void removeCursoUsuario(CursoUsuario cursoUsuario) {
         cursoUsuarios.remove(cursoUsuario);
+    }
+    public List<CursoUsuario> getCursoUsuarios() {
+        return cursoUsuarios;
     }
 
     public void setCursoUsuarios(List<CursoUsuario> cursoUsuarios) {
         this.cursoUsuarios = cursoUsuarios;
     }
 
-    public List<CursoUsuario> getUsuarios() {
+    public List<Usuario> getUsuarios() {
         return usuarios;
     }
 
-    public void setUsuarios(List<CursoUsuario> usuarios) {
+    public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
 }
