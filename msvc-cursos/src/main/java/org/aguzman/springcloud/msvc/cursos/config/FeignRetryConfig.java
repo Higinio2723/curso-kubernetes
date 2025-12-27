@@ -19,6 +19,12 @@ public class FeignRetryConfig {
 
     @Bean
     public Retryer retryer() {
+        if (maxAttempts <= 0) {
+            throw new IllegalArgumentException("feign.retry.max-attempts must be greater than 0");
+        }
+        if (maxPeriod < period) {
+            throw new IllegalArgumentException("feign.retry.max-period must be greater than or equal to feign.retry.period");
+        }
         return new Retryer.Default(period, maxPeriod, maxAttempts);
     }
 }
