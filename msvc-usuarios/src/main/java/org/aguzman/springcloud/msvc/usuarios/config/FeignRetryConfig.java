@@ -1,0 +1,14 @@
+package org.aguzman.springcloud.msvc.usuarios.config;
+
+import feign.Retryer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class FeignRetryConfig {
+
+    @Bean
+    public Retryer retryer() {
+        return new Retryer.Default(100L, 1000L, 3);
+    }
+}
